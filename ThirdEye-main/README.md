@@ -1,30 +1,80 @@
-# ThirdEye: Advanced Driver Safety System with Facial Monitoring and Automatic Braking
+# ThirdEye
 
+ThirdEye is an experimental driver safety system that detects driver drowsiness using real-time facial monitoring and can trigger an alarm and an Arduino-controlled braking mechanism to reduce accident risk.
 
-The "ThirdEye: Advanced Driver Safety System with Facial Monitoring and Automatic Braking" project introduces a pioneering driver safety system designed to mitigate accidents resulting from driver drowsiness or fatigue. Leveraging an advanced camera module discreetly integrated into the vehicle's dashboard and powered by an Arduino Uno microcontroller, this system employs sophisticated Python libraries—cv2, numpy, dlib, imutils, and face_utils—for real-time facial monitoring and recognition.
+**Key features**
+- **Real-time drowsiness detection:** Eye-closure and facial monitoring using Python and dlib.
+- **Alarm:** Audible alert when the driver shows signs of fatigue.
+- **Automatic braking (hardware):** Optional Arduino-controlled actuator to apply brakes if the driver remains unresponsive.
 
-## Features
+**Patent:** This project is [patent-pending](https://drive.google.com/file/d/1FRE9teJaQ9bo7Q4lqErc0LPI0UjavT3H/view).
 
-- **Real-Time Facial Monitoring:** Utilizes advanced camera modules and Python libraries to detect driver drowsiness.
-- **Immediate Alarm Response:** Activates an alarm within 2 seconds of detecting closed eyes or signs of fatigue to alert the driver.
-- **Autonomous Braking Mechanism:** Engages automatic braking if the driver remains unresponsive for 5 seconds, preventing potential accidents.
-- **Integrated Hardware and Software:** Combines Arduino Uno with facial monitoring technologies for seamless operation.
+**Technologies:** Python, OpenCV (`cv2`), NumPy, dlib, imutils, Arduino (Uno).
 
-## Technologies Used
+**Table of contents**
+- Quick start
+- Requirements
+- Installation
+- Usage
+- Hardware setup
+- Project files
+- License
 
-- **Hardware:** Arduino Uno, advanced camera module.
-- **Programming Languages:** Python.
-- **Libraries:** cv2, numpy, dlib, imutils, face_utils.
+## Quick start
+1. Clone the repository (or download and open in your workspace).
+2. Install Python dependencies (see below).
+3. Connect the camera and Arduino hardware per the Hardware setup section.
+4. Run the detection script:
 
-## How It Works
+```powershell
+python drowsinessDetector@deva.py
+```
 
-1. **Facial Monitoring:** The system continuously monitors the driver's facial expressions using the camera module and Python libraries.
-2. **Drowsiness Detection:** Detects signs of drowsiness, such as closed eyes, using real-time image processing.
-3. **Alarm Activation:** Sounds an alarm within 2 seconds to alert the driver.
-4. **Automatic Braking:** Engages the braking mechanism if the driver remains unresponsive for 5 seconds.
+## Requirements
+- Python 3.8+ (3.10 recommended)
+- pip
+- A camera accessible by OpenCV
+- Arduino Uno (for hardware braking integration)
 
-## Patented Filed
+Python libraries used:
+- `opencv-python` (`cv2`)
+- `numpy`
+- `dlib`
+- `imutils`
+- `face_utils` (from `imutils`/`opencv-contrib` helper)
 
-This project is [patent-pending](https://drive.google.com/file/d/1FRE9teJaQ9bo7Q4lqErc0LPI0UjavT3H/view), reflecting its innovative approach to enhancing driver safety and road security.
+Create a `requirements.txt` if you'd like reproducible installs.
+
+## Installation
+Install required Python packages:
+
+```powershell
+pip install opencv-python numpy dlib imutils
+```
+
+Notes: Installing `dlib` may require CMake and a suitable C++ compiler on Windows.
+
+## Usage
+- Verify your camera index (0 is usually the default).
+- Run the script shown in Quick start. The script will open a camera window and monitor eye aspect ratio to detect drowsiness. When drowsiness is detected, it triggers an alarm and, after a configured timeout, signals the Arduino for braking.
+
+## Hardware setup
+- Connect the camera to the host running the Python script.
+- Connect Arduino Uno via USB to the host. The Arduino sketch (`sketch_nov24a.ino`) contains the actuator/brake-control logic. Ensure serial baud rates match in the Python script and the sketch.
+
+## Project files
+- `drowsinessDetector@deva.py`: Main detection script.
+- `sketch_nov24a.ino`: Arduino sketch for braking/actuator control.
+- `shape_predictor_68_face_landmarks.dat`: dlib facial landmarks model (large file).
+- `LICENSE`, `CODE_OF_CONDUCT.md`, `README.md`
+
+## Security & privacy
+- This project processes camera images locally. Do not publish or transmit recorded video feeds without informed consent.
+
+## Contributing
+Feel free to open issues or pull requests on GitHub. For substantial contributions, please include tests and documentation.
+
+## License
+This repository includes a `LICENSE` file. See the license terms in that file.
 
 ---
